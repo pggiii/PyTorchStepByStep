@@ -31,4 +31,4 @@ def RunModelTraining(x_train_tensor, y_train_tensor, model, optimizer, loss_fn):
         optimizer.step()
         optimizer.zero_grad()
 
-        print(model.state_dict())
+    print(model.state_dict())

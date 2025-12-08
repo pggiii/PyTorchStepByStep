@@ -1,4 +1,4 @@
-import DataGenerationV0 as dg
+import DataGenerationV1 as dg
 import DataPreparationV0 as dp
 import ModelConfigurationV0 as mc
 import ModelTrainingV0 as mt
