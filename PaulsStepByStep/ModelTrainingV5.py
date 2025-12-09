@@ -7,35 +7,22 @@ from torchviz import make_dot
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import HelpersV0 as helpers
+import StepByStep
 
-def RunModelTraining(device, train_loader, val_loader, train_step_fn, val_step_fn, get_model_fn, writer):
+def RunModelTraining(model, loss_fn, optimizer, train_loader, val_loader, plot_losses = False):
     """Do training using the data, model, optimizer, and loss_fn passed in."""
 
-   # Defines number of epochs
     n_epochs = 200
 
-    losses = []
-    val_losses = []
+    sbs = StepByStep.StepByStep(model, loss_fn, optimizer)
+    sbs.set_loaders(train_loader, val_loader)
+    sbs.set_tensorboard('classy')
+    sbs.train(n_epochs=n_epochs)
 
-    for epoch in range(n_epochs):
-        # inner loop
-        loss = helpers.mini_batch(device, train_loader, train_step_fn)
-        losses.append(loss)
-
-        # VALIDATION
-        # no gradients in validation!
-        with torch.no_grad():
-            val_loss = helpers.mini_batch(device, val_loader, val_step_fn)
-            val_losses.append(val_loss)  
-
-        # Records both losses for each epoch under the main tag "loss"
-        writer.add_scalars(main_tag='loss', tag_scalar_dict={'training': loss, 'validation': val_loss}, global_step=epoch)
-
-    # Closes the writer
-    writer.close()
-
-    # See the models state
-    model = get_model_fn()
     print(model.state_dict())
+    print(sbs.total_epochs)
 
-    return losses, val_losses
+    if plot_losses:
+        fig = sbs.plot_losses()
+
+    return sbs
