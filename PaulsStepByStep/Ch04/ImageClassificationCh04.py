@@ -188,9 +188,9 @@ def RunAll01(n_epochs = 100, use_bias=False, showDataset=True, showLosses=True):
         sbs.plot_losses()
         plt.show()
 
-def RunAll02(n_epochs = 100, use_bias=False, showDataset=True, showLosses=True):
+def RunAll02(n_epochs = 100, n_images=300, use_bias=False, showDataset=True, showLosses=True):
 
-    images, labels = GeneratData00(img_size=5, n_images=300, seed=13, showDataset=showDataset)
+    images, labels = GeneratData00(img_size=5, n_images=n_images, seed=13, showDataset=showDataset)
 
     train_loader, val_loader = PrepareData00(images, labels)
 

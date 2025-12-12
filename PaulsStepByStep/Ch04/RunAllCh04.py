@@ -23,6 +23,6 @@ plt.style.use('fivethirtyeight')
 
 #ic.RunAll01(n_epochs=100, use_bias=False, showDataset=True, showLosses=True)
 
-ic.RunAll02(n_epochs=50, use_bias=False, showDataset=True, showLosses=True)
+ic.RunAll02(n_epochs=50, n_images=300, use_bias=False, showDataset=True, showLosses=True)
 
 i=0
