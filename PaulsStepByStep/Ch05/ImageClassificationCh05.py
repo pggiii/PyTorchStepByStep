@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision.transforms.v2 import Compose, Normalize
 
 from DataGenerationHelpersCh05 import generate_dataset
-from StepByStepV0 import StepByStep
+from StepByStepV3 import StepByStep
 from PlotHelpersCh05 import *
 
 import random
@@ -87,14 +87,13 @@ def PrepareData00(images, labels):
 #############
 # Configure Model
 
-def ConfigureModel00(use_bias=False):
+def ConfigureModel00(n_channels=1, use_bias=False):
 
     torch.manual_seed(13)
     model_cnn1 = nn.Sequential()
 
     # Featurizer
     # Block 1: 1@10x10 -> n_channels@8x8 -> n_channels@4x4
-    n_channels = 1
     model_cnn1.add_module('conv1', nn.Conv2d(in_channels=1, out_channels=n_channels, kernel_size=3,bias=use_bias))
     model_cnn1.add_module('relu1', nn.ReLU())
     model_cnn1.add_module('maxp1', nn.MaxPool2d(kernel_size=2))
@@ -127,16 +126,18 @@ def TrainModel00(model, loss_fn, optimizer, train_loader, val_loader, n_epochs =
 #########################
 # Run All
 
-def RunAll00(n_epochs = 100, use_bias=False, showDataset=True, showLosses=True):
+def RunAll00(n_images=1000, n_epochs = 100, n_channels = 1, use_bias=False, showDataset=True, showLosses=True):
 
-    images, labels = GeneratData00(img_size=10, n_images=1000, binary=False, seed=17, showDataset=showDataset)
+    images, labels = GeneratData00(img_size=10, n_images=n_images, binary=False, seed=17, showDataset=showDataset)
 
     train_loader, val_loader = PrepareData00(images, labels)
 
-    model, loss_fn, optimizer = ConfigureModel00(use_bias=use_bias)
+    model, loss_fn, optimizer = ConfigureModel00(n_channels, use_bias=use_bias)
 
     sbs = TrainModel00(model, loss_fn, optimizer, train_loader, val_loader, n_epochs=n_epochs)
 
     if showLosses:
         sbs.plot_losses()
         plt.show()
+
+    return sbs
