@@ -15,7 +15,7 @@ from DataGenerationHelpersCh05 import generate_dataset
 from StepByStepV3 import StepByStep
 from PlotHelpersCh05 import *
 
-import ImageClassificationCh05 as ic
+import ImageClassificationCh06 as ic
 
 plt.style.use('fivethirtyeight')
 

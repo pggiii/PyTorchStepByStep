@@ -241,12 +241,14 @@ class StepByStep(object):
         return y_hat_tensor.detach().cpu().numpy()
 
     def plot_losses(self):
-        fig = plt.figure(figsize=(10, 4))
+        fig = plt.figure(figsize=(10, 6))
         plt.plot(self.losses, label='Training Loss', c='b')
         plt.plot(self.val_losses, label='Validation Loss', c='r')
         plt.yscale('log')
         plt.xlabel('Epochs')
         plt.ylabel('Loss')
+        ticks=[ 0.005, 0.1, 0.5, 1.0]
+        plt.yticks(ticks)
         plt.legend()
         plt.tight_layout()
         return fig

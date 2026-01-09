@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from copy import deepcopy
 from PIL import Image
-from stepbystep.v2 import StepByStep
+from StepByStepV2 import StepByStep
 from torchvision.transforms import ToPILImage
 from sklearn.linear_model import LinearRegression
 from torch.optim.lr_scheduler import StepLR, ReduceLROnPlateau, MultiStepLR, CyclicLR, LambdaLR
